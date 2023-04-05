@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавление хранилища</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <header th:insert="~{blocks/header}"></header>
+    <div class="container">
+        <main>
+            <div class="py-5 text-center">
+               <h1 class="h3 mb-3 fw-normal">Заполните данные хранилища</h1>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-7 col-lg-8">
+                    <form th:method="POST" th:action="@{/storages/new}" th:object="${storage}" enctype="multipart/form-data">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="name" class="form-label">Местоположение</label>
+                                <input type="text" class="form-control" id="name" th:field="*{location}">
+                                <div style="color: red" th:if="${#fields.hasErrors('location')}" th:errors="*{location}">
+                                    Ошибка местоположения
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="description" class="form-label">Описание</label>
+                                <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+                                <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                                    Ошибка описания
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="image" class="form-label">Изображение</label>
+                                <input type="file" class="form-control-file" id="image" placeholder="Выберите изображение..." name="image" accept="image/*" th:field="*{image}">
+                                <div style="color: red" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">
+                                    Ошибка изображения
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div th:insert="~{blocks/footer}"></div>
+</body>
+</html>

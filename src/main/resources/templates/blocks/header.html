@@ -1,0 +1,48 @@
+<header>
+  <div class="px-3 py-2 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+        <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+          <img class="bi me-2" width="48" height="40" src ="/img/main/booksharing.png" alt ="Main label booksharing"/>
+          <span class="fs-4" style="font-family: 'Segoe UI Semibold'">booksharing</span>
+        </a>
+
+        <form th:method="GET" th:action="@{/books/search}" class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
+          <input class="form-control me-2" type="search" name="text" placeholder="Поиск..." aria-label="Search">
+        </form>
+
+        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+          <li>
+            <a href="/" class="nav-link text-white">
+              <img class="bi d-block mx-auto mb-1" width="24" height="24" src ="/img/main/home.png" alt ="Main page"/>
+              Главная
+            </a>
+          </li>
+          <a href="/books" class="nav-link text-white">
+            <img class="bi d-block mx-auto mb-1" width="24" height="24" src ="/img/main/catalog.png" alt ="Catalog"/>
+            Каталог
+          </a>
+          <li>
+            <a href="/rentals" class="nav-link text-white">
+              <img class="bi d-block mx-auto mb-1" width="24" height="24" src ="/img/main/orders.png" alt ="Orders"/>
+              Заказы
+            </a>
+          </li>
+          <li>
+            <a href="/cart" class="nav-link text-white">
+              <img class="bi d-block mx-auto mb-1" width="24" height="24" src ="/img/main/cart.png" alt ="Cart"/>
+              Корзина
+            </a>
+          </li>
+          <li>
+            <a href="/profile" class="nav-link text-white">
+              <img class="bi d-block mx-auto mb-1" width="24" height="24" src ="/img/main/profile.png" alt ="Profile"/>
+              Профиль
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

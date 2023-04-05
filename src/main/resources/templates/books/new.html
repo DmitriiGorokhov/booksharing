@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление книги</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/list-groups/">
+    <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <meta name="theme-color" content="#712cf9">
+
+    <style>
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: var(--bs-body-font-family);
+            font-size: var(--bs-body-font-size);
+            font-weight: var(--bs-body-font-weight);
+            line-height: var(--bs-body-line-height);
+            color: var(--bs-body-color);
+            background-color: var(--bs-body-bg);
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+        body {
+            display: block;
+            /*margin: 8px;*/
+        }
+
+        @media (min-width: 768px) {
+        }
+    </style>
+</head>
+<body class="bg-light">
+<header th:insert="~{blocks/header}"></header>
+
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h1 class="h3 mb-3 fw-normal">Заполните данные книги</h1>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-7 col-lg-8">
+                <form th:method="POST" th:action="@{/books/new}" th:object="${book}" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="title" class="form-label">Наименование</label>
+                            <input id="title" type="text" class="form-control" th:field="*{title}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                                Ошибка наименования
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="author" class="form-label">Автор</label>
+                            <select id="author" class="form-control" th:field="*{author}">
+                                <option th:each="author : ${authors}" th:value="${author.getId()}" th:text="${author.getFullName()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">
+                                Ошибка автора
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="genre" class="form-label">Жанр</label>
+                            <select id="genre" class="form-control" th:field="*{genre}">
+                                <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getName()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">
+                                Ошибка жанра
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="language" class="form-label">Язык</label>
+                            <select id="language" class="form-control" th:field="*{language}">
+                                <option th:each="language : ${languages}" th:value="${language.getId()}" th:text="${language.getName()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('language')}" th:errors="*{language}">
+                                Ошибка языка
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="cover" class="form-label">Обложка</label>
+                            <select id="cover" class="form-control" th:field="*{cover}">
+                                <option th:each="cover : ${covers}" th:value="${cover.name()}" th:text="${cover.getDescription()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('cover')}" th:errors="*{cover}">
+                                Ошибка обложки
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="yearOfPublishing" class="form-label">Год издания</label>
+                            <input id="yearOfPublishing" type="number" class="form-control" th:field="*{yearOfPublishing}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('yearOfPublishing')}" th:errors="*{yearOfPublishing}">
+                                Ошибка года издания
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="publishingHouse" class="form-label">Издательство</label>
+                            <select id="publishingHouse" class="form-control" th:field="*{publishingHouse}">
+                                <option th:each="publishingHouse : ${publishingHouses}" th:value="${publishingHouse.getId()}" th:text="${publishingHouse.getName()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('publishingHouse')}" th:errors="*{publishingHouse}">
+                                Ошибка издательства
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="translator" class="form-label">Переводчик</label>
+                            <select id="translator" class="form-control" th:field="*{translator}">
+                                <option th:each="translator : ${translators}" th:value="${translator.getId()}" th:text="${translator.getFullName()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('translator')}" th:errors="*{translator}">
+                                Ошибка переводчика
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="isbn" class="form-label">ISBN</label>
+                            <input id="isbn" type="text" class="form-control" th:field="*{isbn}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}">
+                                Ошибка ISBN
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="numberOfPages" class="form-label">Количество страниц</label>
+                            <input id="numberOfPages" type="number" class="form-control" th:field="*{numberOfPages}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('numberOfPages')}" th:errors="*{numberOfPages}">
+                                Ошибка количества страниц
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="length" class="form-label">Длина</label>
+                            <input id="length" type="number" class="form-control" th:field="*{length}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('length')}" th:errors="*{length}">
+                                Ошибка длины
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="width" class="form-label">Ширина</label>
+                            <input id="width" type="number" class="form-control" th:field="*{width}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('width')}" th:errors="*{width}">
+                                Ошибка ширины
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="height" class="form-label">Высота</label>
+                            <input id="height" type="number" class="form-control" th:field="*{height}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">
+                                Ошибка высоты
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="weight" class="form-label">Вес</label>
+                            <input id="weight" type="number" class="form-control" th:field="*{weight}"/>
+                            <span style="color: red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">
+                                Ошибка веса
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="ageLimit" class="form-label">Возрастное ограничение</label>
+                            <select id="ageLimit" class="form-control" th:field="*{ageLimit}">
+                                <option th:each="ageLimit : ${ageLimits}" th:value="${ageLimit.name()}" th:text="${ageLimit.getDescription()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('ageLimit')}" th:errors="*{ageLimit}">
+                                Ошибка возрастного ограничения
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="storage" class="form-label">Хранилище</label>
+                            <select id="storage" class="form-control" th:field="*{storage}">
+                                <option th:each="storage : ${storages}" th:value="${storage.getId()}" th:text="${storage.getLocation()}"/>
+                            </select>
+                            <span style="color: red" th:if="${#fields.hasErrors('storage')}" th:errors="*{storage}">
+                                Ошибка хранилища
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="description" class="form-label">Описание</label>
+                            <textarea id="description" class="form-control" th:field="*{description}"></textarea>
+                            <span style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                                Ошибка описания
+                            </span>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="image" class="form-label">Изображение</label>
+                            <input type="file" class="form-control-file" id="image" placeholder="Выберите изображение..." name="image" accept="image/*" th:field="*{image}">
+                            <div style="color: red" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">
+                                Ошибка изображения
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div th:insert="~{blocks/footer}"></div>
+</body>
+</html>
